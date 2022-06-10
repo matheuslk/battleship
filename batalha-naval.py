@@ -31,6 +31,19 @@ posicoes_fragata = []
 posicoes_porta_aviao = []
 posicoes_cruzador = []
 posicoes_fragata = []
+pontuacoes = [10, 20, 30]
+
+
+def calcularPontuacaoFinal():
+  pontuacao = 0
+  for index_pontuacao in range(len(pontuacoes)):
+    if(index_pontuacao == 0):
+      pontuacao += quantidade_fragata * pontuacoes[index_pontuacao]
+    elif(index_pontuacao == 1):
+      pontuacao += quantidade_cruzador * pontuacoes[index_pontuacao]
+    else:
+      pontuacao += quantidade_porta_aviao * pontuacoes[index_pontuacao]
+  return pontuacao
 
 
 def calcularPosicoesEmbarcacao(tipo_embarcacao):
@@ -163,13 +176,10 @@ def ataque(linha, coluna):
       if(todas_posicoes[tipo_embarcacao_atacada][index_posicoes_embarcacao][index_embarcacao] and
          todas_posicoes[tipo_embarcacao_atacada][index_posicoes_embarcacao][index_embarcacao][0] == linha and
          todas_posicoes[tipo_embarcacao_atacada][index_posicoes_embarcacao][index_embarcacao][1] == coluna):
-        print(
-            f'POSICAO PARA SER DELETADA L159 {todas_posicoes[tipo_embarcacao_atacada][index_posicoes_embarcacao][index_embarcacao]}')
         todas_posicoes[tipo_embarcacao_atacada][index_posicoes_embarcacao][index_embarcacao] = NULL
 
 
 def calcularPontuacao():
-  pontuacoes = [10, 20, 30]
   pontuacao = 0
   todas_posicoes = [posicoes_fragata, posicoes_cruzador, posicoes_porta_aviao]
   for tipo_embarcacao in range(3):
@@ -184,12 +194,12 @@ def calcularPontuacao():
 
 
 os.system('cls||clear')
-input('\n> Para começar o ataque, digite qualquer tecla...')
 
 matriz_jogo = [0] * 20
 for linha in range(len(matriz_jogo)):
   matriz_jogo[linha] = ['▮'] * 20
 pontuacao_total = 0
+pontuacao_final = calcularPontuacaoFinal()
 fim_jogo = False
 while not fim_jogo:
   os.system('cls||clear')
@@ -205,7 +215,11 @@ while not fim_jogo:
         print(f'{matriz_jogo[linha][coluna]}')
       else:
         print(f'{matriz_jogo[linha][coluna]}  ', end='')
-  print(f'\n>Pontuacao: {pontuacao_total}')
+  if(pontuacao_final == pontuacao_total):
+    fim_jogo = True
+    input('\nParabéns, você venceu ! Digite qualquer tecla para finalizar o jogo...')
+    break
+  print(f'\n>Pontuacao Total: {pontuacao_total}')
   linha_ataque = input('\n>Digite a linha: ').upper()
   coluna_ataque = input('\n>Digite a coluna: ')
   if linha_ataque in linhas_matriz and coluna_ataque in colunas_matriz:
@@ -217,9 +231,7 @@ while not fim_jogo:
     if posicao_disponivel:
       ataque(linha_ataque, coluna_ataque)
       pontuacao_total = calcularPontuacao()
-      # input('\n> Digite qualquer tecla para continuar')
     else:
       input('\n> Posição inválida, digite qualquer tecla para continuar...')
   else:
     input('\n> Posição inválida, digite qualquer tecla para continuar...')
-  # fim_jogo = True
