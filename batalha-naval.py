@@ -10,15 +10,15 @@ for linha in range(len(matriz_valores)):
 PORTA_AVIAO = '2'
 CRUZADOR = '1'
 FRAGATA = '0'
-quantidade_porta_aviao = 1
+quantidade_porta_aviao = 3
 tamanho_porta_aviao = 4
 posicoes_porta_aviao = []
 
-quantidade_cruzador = 2
+quantidade_cruzador = 4
 tamanho_cruzador = 3
 posicoes_cruzador = []
 
-quantidade_fragata = 3
+quantidade_fragata = 5
 tamanho_fragata = 2
 posicoes_fragata = []
 
