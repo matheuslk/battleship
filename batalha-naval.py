@@ -3,28 +3,25 @@ import os
 matriz_valores = [0] * 20
 linhas_matriz = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
                  'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
-colunas_matriz = ['0', '1', '2', '3', '4', '5', '6',
-                  '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19']
+colunas_matriz = ['1', '2', '3', '4', '5', '6',
+                  '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
 for linha in range(len(matriz_valores)):
   matriz_valores[linha] = ['▮'] * 20
 PORTA_AVIAO = '2'
 CRUZADOR = '1'
 FRAGATA = '0'
-quantidade_porta_aviao = 3
+quantidade_porta_aviao = 1
 tamanho_porta_aviao = 4
 posicoes_porta_aviao = []
 
-quantidade_cruzador = 4
+quantidade_cruzador = 2
 tamanho_cruzador = 3
 posicoes_cruzador = []
 
-quantidade_fragata = 5
+quantidade_fragata = 3
 tamanho_fragata = 2
 posicoes_fragata = []
 
-posicoes_porta_aviao = []
-posicoes_cruzador = []
-posicoes_fragata = []
 pontuacoes = [10, 20, 30]
 
 
@@ -70,15 +67,15 @@ def desenhar_tabuleiro(matriz):
     if(linha == 0):
       for index_numero_coluna in range(20):
         if(index_numero_coluna == 0):
-          print(f'  {index_numero_coluna}', end='')
+          print(f'  {colunas_matriz[index_numero_coluna]}', end='')
         elif(index_numero_coluna == 19):
-          print(f' {index_numero_coluna}')
-        elif(index_numero_coluna > 0 and index_numero_coluna < 10):
-          print(f'  {index_numero_coluna}', end='')
-        elif(index_numero_coluna == 10):
-          print(f'  {index_numero_coluna}', end='')
-        elif(index_numero_coluna > 10):
-          print(f' {index_numero_coluna}', end='')
+          print(f' {colunas_matriz[index_numero_coluna]}')
+        elif(index_numero_coluna > 0 and index_numero_coluna < 9):
+          print(f'  {colunas_matriz[index_numero_coluna]}', end='')
+        elif(index_numero_coluna == 9):
+          print(f'  {colunas_matriz[index_numero_coluna]}', end='')
+        elif(index_numero_coluna > 9):
+          print(f' {colunas_matriz[index_numero_coluna]}', end='')
     for coluna in range(20):
       if(coluna == 0):
         print(
@@ -128,7 +125,7 @@ while numero_cadastro_atual < total_tipos_embarcacao:
     coluna_embarcacao = input('\n>Digite a coluna: ')
     if linha_embarcacao in linhas_matriz and coluna_embarcacao in colunas_matriz:
       linha_embarcacao = linhas_matriz.index(linha_embarcacao)
-      coluna_embarcacao = int(coluna_embarcacao)
+      coluna_embarcacao = (int(coluna_embarcacao)) - 1
       posicao_disponivel = True
       for index_posicao_ocupada in range(tamanho_embarcacao):
         if(coluna_embarcacao+index_posicao_ocupada == 20 or matriz_valores[linha_embarcacao][coluna_embarcacao+index_posicao_ocupada] != '▮'):
@@ -205,7 +202,7 @@ pontuacao_final = calcular_pontuacao_final()
 while True:
   os.system('cls||clear')
   desenhar_tabuleiro(matriz_jogo)
-  print(f'\n>Pontuacao Total: {pontuacao_total}')
+  print(f'\n> Pontuacao Total: {pontuacao_total}')
   if(pontuacao_final == pontuacao_total):
     input('\nParabéns, você venceu ! Digite qualquer tecla para finalizar o jogo...')
     break
@@ -213,7 +210,7 @@ while True:
   coluna_ataque = input('\n>Digite a coluna: ')
   if linha_ataque in linhas_matriz and coluna_ataque in colunas_matriz:
     linha_ataque = linhas_matriz.index(linha_ataque)
-    coluna_ataque = int(coluna_ataque)
+    coluna_ataque = (int(coluna_ataque)) - 1
     posicao_disponivel = True
     if(matriz_jogo[linha_ataque][coluna_ataque] != '▮'):
       posicao_disponivel = False
